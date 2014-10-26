@@ -120,7 +120,7 @@ function showDiv() {
 
   .parallax {
     font-size: 200%;
-background: rgb(1,193,118);
+
   }
 
    /* centre the content in the parallax layers */
@@ -147,14 +147,11 @@ background: rgb(1,193,118);
     background: rgba(0,0,0,0.5);
   }
   .headertitleex{
-    left: 10%;
-    right: 10%;
+    background: rgba(0,0,0,1);
     position: absolute;
-    padding: 2%;
     font-family: 'Dosis', serif;
-    background: rgba(0,0,0,0.5);
-    font-size: 20px;
-
+  /*  background-image:url("wave.png");*/
+    font-size: 80%;
   }
 
 
@@ -171,7 +168,7 @@ background: rgb(1,193,118);
   }
 
   #group2 {
-    z-index: 3; /* slide under groups 1 and 3 */
+    z-index: 2; /* slide under groups 1 and 3 */
 
   }
   #group2 .parallax__layer--back {
@@ -180,7 +177,7 @@ background: rgb(1,193,118);
 
   #group3 {
 
-        background-image:url('wave.png');
+        /*background-image:url('wave.png');*/
     z-index: 4; /* slide over group 2 and 4 */
   }
   #group3 .parallax__layer--base {
@@ -194,15 +191,15 @@ background: rgb(1,193,118);
   }
 
 
-
+/*
   #group4 {
     background: rgb(253,257,151);
 
     background-image: url('flower.png');
     background-size: 15px 15px;
-    z-index: 2; /* slide under group 3 and 5 */
+    z-index: 2;
   }
-  /*
+
   #group4 .parallax__layer--deep {
     background: rgb(184,223,101);
   }
@@ -218,7 +215,7 @@ background: rgb(1,193,118);
   #group6 {
     background: rgb(255,241,100);
 
-    z-index: 2; /* slide under group 5 and 7 */
+    z-index: 4; /* slide under group 5 and 7 */
   }
   #group6 .parallax__layer--back {
 background: rgba(0,0,0, 0.3);
@@ -229,9 +226,17 @@ background: rgba(0,0,0, 0.3);
     z-index: 3; /* slide over group 7 */
   }
   #group7 .parallax__layer--base {
-background: rgb(1,193,118);
+ /*background: rgb(1,193,118);*/
+  background-image:url("thanks.png");
+  background-repeat: no-repeat;
+
   }
 
+#group7 .parllax__layer--fore{
+  height:100%;
+  background:white;
+
+}
 
   /* misc
   --------------------------------------------- */
@@ -245,7 +250,7 @@ background: rgb(1,193,118);
     width: 100%;
     background:#ff5b57;
   }
-
+/*
   .backgroundtext {
     opacity: 1.0;
     color: black;
@@ -254,16 +259,18 @@ background: rgb(1,193,118);
     text-align: center;
     padding: 20%;
 
-}
+}*/
 .icon {
-    height: 50px;
-    width: 50px;
+    width:14%;
   }
+
+
 
 #iframe_main {
     height: 100%;
     width: 100%;
     overflow: hidden;
+
 }
 
 
@@ -287,11 +294,43 @@ background: rgb(1,193,118);
   font-size: 200%;
 
 }
+
+/*
 .idiv{
   height: 100%;
   width: 100%;
   position: absolute;
+}*/
+
+.timelineheader{
+  color: white; font-size: 1000%; padding: 0% 0% 3% 3%;
+  width: 60%;
+  left: 20%;
+  right: 20%;
 }
+
+
+a:link {
+    text-decoration: none;
+    color: white;
+}
+
+a:visited {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #ff5b57;
+}
+
+a:active {
+    text-decoration: none;
+    color: #ff5b57;
+}
+
+
 </style>
 
 
@@ -314,7 +353,7 @@ background: rgb(1,193,118);
       <div id="top"></div>
       <div class="parallax__layer parallax__layer--base">
 
-        <div class="title" style="font-size: 100px;">HELLO MY NAME IS KARINA<br>
+        <div class="title" style="font-size: 300%;">HELLO MY NAME IS KARINA<br>
 
           <!-- this is my nav bar -->
         <div class="navbar">
@@ -348,10 +387,10 @@ background: rgb(1,193,118);
       <div class="parallax__layer parallax__layer--fore">
 <!-- <img src="wave.png" style="z-index: 1;"> -->
 <div class="headertitleex">
-<h2 style="color: white; font-size: 100px; padding: 0% 0% 3% 3%;">Some of my projects...</h2>
-
+<h1 class="timelineheader"><a href="#timeline">CHECK OUT MY TIMELINE</a></h1>
 <!--
-</div> -->
+
+
 <div class="projects">
 
 <a href="../pennappsf13/" title="PennApps Fall 2013 IdeaBox">IdeaBox</a><br>
@@ -363,8 +402,9 @@ background: rgb(1,193,118);
 <a href="http://cs.wellesley.edu/~trace/servlets/" title="CS 304 Databases with web interfaces project">Trace</a><br>
 </div>
 
-<h1 style="color: white; font-size: 70px; padding:0% 0% 3% 3%;">You should check out my <a href="#timeline">timeline</a> though.</h1>
-</div>
+<h1 style="color: white; width: 100%; font-size: 100%;"><a href="#timeline">TIMELINE</a></h1>
+
+--></div>
 
 
 
@@ -391,18 +431,29 @@ background: rgb(1,193,118);
 
 
     <div id="group7" class="parallax__group">
+      <div id="timeline"></div>
+      <div class="parallax__layer parallax__layer--fore" >
 
+        <h1 style="color: white;">THIS IS FROM TIMELINE.JS</h1>
+<iframe src='http://cdn.knightlab.com/libs/timeline/latest/embed/index.html?source=0Am7Aqy7NnXPfdFRabHVfcU90cjBPcy1IeWl3TWVUSFE&font=BreeSerif-OpenSans&maptype=toner&lang=en&start_at_end=true&hash_bookmark=true&start_zoom_adjust=7&height=650' width='100%' height='650' frameborder='0'></iframe>
+
+      </div>
+
+<!--
       <div class="parallax__layer parallax__layer--base">
-      <div style="margin: 0 auto; padding: 20%;">
-      <h1>So what can you actually do?</h1>
-        <p>I can do a lot of things. <br>I can cook an egg in a cup.<br>I like to grow scallions. <br>For more information, check out my resume, linkedin, or github:  <br><a href="karinaResume.pdf" alt="download my resume"><img class="icon" src="svg/professional5.svg"></a>
+<div class="title">Contact me at karina at wellesley dot edu</div>
+</div>-->
+
+    </div>
+
+    <div id="group7" class="parallax__group">
+      <div class="parallax__layer parallax__layer--base">
+
+      <div style="margin: 0 auto; padding: 0 2% 0 2%;">
+      <h1 style="font-size:300%;">So what can you actually do?</h1>
+        <p>I can do a lot of things.<br>I play frisbee. <br>I can cook an egg in a cup.<br>I like to grow scallions. <br>For more information, check out my resume, linkedin, or github:  <br><a href="karinaResume.pdf" alt="download my resume"><img class="icon" src="svg/professional5.svg"></a>
 <a href="https://www.linkedin.com/in/karinachan" alt="Linkedin"><img class="icon" src="svg/linkedin1.svg" alt="linkedin icon"></a>
 <a href="https://github.com/karinachan" alt="github"><img class="icon" src="svg/github4.svg" alt="github icon"></a></div>
-<div id="timeline" class="idiv">
-<iframe id="iframe_main" align="center" src='http://cdn.knightlab.com/libs/timeline/latest/embed/index.html?source=0Am7Aqy7NnXPfdFRabHVfcU90cjBPcy1IeWl3TWVUSFE&font=NixieOne-Ledger&maptype=toner&lang=en&start_at_end=true&hash_bookmark=true&start_zoom_adjust=7&height=600' width='100%' height='550' frameborder='0'></iframe>
-
-</div>
-
 </div>
       </div>
     </div>
