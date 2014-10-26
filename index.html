@@ -1,78 +1,433 @@
 <!DOCTYPE html>
 
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
   <link rel='shortcut icon' href='favicon.ico' type='image/icon' />
   <title>karina chan</title>
+  <link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
 
-  <style>
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>
+function showDiv() {
+   document.getElementById('timelineDiv').style.display = "block";
+}
+</script>
 
-  body {
-    font-family: Arial;
-    font-size: 60px;
-    color: #ff7979;
+
+<style>
+
+
+  /* Parallax base styles
+  --------------------------------------------- */
+
+  .parallax {
+    height: 500px; /* fallback for older browsers */
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-perspective: 300px;
+    perspective: 300px;
+  }
+
+  .parallax__group {
+    position: relative;
+    height: 500px; /* fallback for older browsers */
+    height: 100vh;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
 
   }
 
-h2{
-background-color: grey;
-}
-p{
-color: grey;
-}
-a:link {
-color: rgb(222,184,135);
-text-decoration: none}
+  .parallax__layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
 
-a:visited {
-color:rgb(165, 238, 252);
-text-decoration: none}
-a:active {
+  .parallax__layer--fore {
+    -webkit-transform: translateZ(90px) scale(.7);
+    transform: translateZ(90px) scale(.7);
+    z-index: 1;
+  }
 
-text-decoration: none}
-a:hover { text-decoration:none;
-text-shadow: 0 0 2px #999;
-}
-.projectpane{
-padding-right: 15%;
-padding-left: 10%;
-text-align: right;
-}
-.comment{
-font-size:30px;
-}
- /* .phat{
+  .parallax__layer--base {
+    -webkit-transform: translateZ(-5);
+    transform: translateZ(0);
+    z-index: 4;
+  }
 
-    background:#4296f4;
-    height: 5em;
-width: 12em;
--moz-border-radius: 1em 4em 1em 4em;
-border-radius: 1em 4em 1em 4em;
-padding: 5%;
-  }*/ 
-  </style>
+  .parallax__layer--back {
+    -webkit-transform: translateZ(-150px) scale(2);
+    transform: translateZ(-150px) scale(2);
+    z-index: 3;
+  }
+
+  .parallax__layer--deep {
+    -webkit-transform: translateZ(-600px) scale(3);
+    transform: translateZ(-600px) scale(3);
+    z-index: 2;
+  }
+
+
+  /* Debugger styles - used to show the effect
+  --------------------------------------------- */
+
+  .debug {
+    position: fixed;
+    top: 0;
+    left: .5em;
+    z-index: 999;
+    background: rgba(0,0,0,.85);
+    color: #fff;
+    padding: .5em;
+    border-radius: 0 0 5px 5px;
+  }
+  .debug-on .parallax__group {
+    -webkit-transform: translate3d(800px, 0, -800px) rotateY(30deg);
+    transform: translate3d(700px, 0, -800px) rotateY(30deg);
+ }
+  .debug-on .parallax__layer {
+    box-shadow: 0 0 0 2px #000;
+    opacity: 0.9;
+  }
+  .parallax__group {
+    -webkit-transition: -webkit-transform 0.5s;
+    transition: transform 0.5s;
+  }
+
+
+  /* demo styles
+  --------------------------------------------- */
+
+  body, html {
+    overflow: hidden;
+    height: 100%;
+  }
+
+
+  body {
+    font-family: 'Dosis', serif;
+  }
+
+  * {
+    margin:0;
+    padding:0;
+  }
+
+  .parallax {
+    font-size: 200%;
+background: rgb(1,193,118);
+  }
+
+   /* centre the content in the parallax layers */
+  .title {
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    font-family: 'Dosis', serif;
+  }
+
+  .headertitle{
+    text-align: right;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    color: white;
+    padding:5%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    font-family: 'Dosis', serif;
+    background: rgba(0,0,0,0.5);
+  }
+  .headertitleex{
+    left: 10%;
+    right: 10%;
+    position: absolute;
+    padding: 2%;
+    font-family: 'Dosis', serif;
+    background: rgba(0,0,0,0.5);
+    font-size: 20px;
+
+  }
+
+
+
+  /* style the groups
+  --------------------------------------------- */
+
+  #group1 {
+    z-index: 5; /* slide over group 2 */
+
+  }
+  #group1 .parallax__layer--base {
+    background: rgb(1,193,118);
+  }
+
+  #group2 {
+    z-index: 3; /* slide under groups 1 and 3 */
+
+  }
+  #group2 .parallax__layer--back {
+
+  }
+
+  #group3 {
+
+        background-image:url('wave.png');
+    z-index: 4; /* slide over group 2 and 4 */
+  }
+  #group3 .parallax__layer--base {
+  /*background: rgb(253,257,151);
+
+  background-image: url('flower.png');
+  background-size: 15px 15px; */
+
+  background: rgba(0,0,0,0.6);
+
+  }
+
+
+
+  #group4 {
+    background: rgb(253,257,151);
+
+    background-image: url('flower.png');
+    background-size: 15px 15px;
+    z-index: 2; /* slide under group 3 and 5 */
+  }
+  /*
+  #group4 .parallax__layer--deep {
+    background: rgb(184,223,101);
+  }
+
+  #group5 {
+    z-index: 3; ---------- slide over group 4 and 6
+  }
+  #group5 .parallax__layer--base {
+
+
+  }
+  */
+  #group6 {
+    background: rgb(255,241,100);
+
+    z-index: 2; /* slide under group 5 and 7 */
+  }
+  #group6 .parallax__layer--back {
+background: rgba(0,0,0, 0.3);
+
+  }
+
+  #group7 {
+    z-index: 3; /* slide over group 7 */
+  }
+  #group7 .parallax__layer--base {
+background: rgb(1,193,118);
+  }
+
+
+  /* misc
+  --------------------------------------------- */
+  .footer {
+    position: absolute;
+    z-index:100;
+    bottom: 0vh;
+    top: auto;
+    font-size:100%;
+    text-align:center;
+    width: 100%;
+    background:#ff5b57;
+  }
+
+  .backgroundtext {
+    opacity: 1.0;
+    color: black;
+    size: 1000px;
+    z-index:100;
+    text-align: center;
+    padding: 20%;
+
+}
+.icon {
+    height: 50px;
+    width: 50px;
+  }
+
+#iframe_main {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+
+
+.space{
+  height:20%;
+}
+
+
+
+.projects {
+  text-align: left;
+  width: 60%;
+  margin: 0 auto;
+  z-level:100;
+
+}
+
+.projects a{
+  color: white;
+  font-size: 200%;
+
+}
+.idiv{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+</style>
+
+
+
 </head>
+
 <body>
-<h1>Hello! Thanks for checking out my website. This is still a work in progress. Come back soon!
-</h1>
-<h2>current projects</h2>
-<div class="projectpane">
-<a href="galaxytravel" title="Galaxy Travel">Galaxy Travel</a><br>
-<p>Working on developing <a href="#save">Save the Net</a> into a more general webapp geared towards creating more interactive and fun social media campaigns. </p>
+
+
+  <div class="debug">
+    <label><input type="checkbox"> Debug</label>
+  </div>
+
+  <div class="footer">
+  <h2 style="float: left; padding: 1%;">Made with love at Wellesley<a href="#top"></h2><img src="svg/up21.svg" style="padding:1%; float: right;"></a>
 </div>
-  <h2>previous projects</h2>
-<div class="projectpane">
-<a href="../pennappsf13/" title="PennApps Fall 2013 IdeaBox">IdeaBox</a>
-</div><br>
-<div class="projectpane">
-<a href="http://cs.wellesley.edu/~lzeng/PennAppsS14/wut2do/index.html" title="PennApps Spring 2014 Whur">Whur?</a></div><br>
-<div class="projectpane">
-<div id="save"><a href="http://savethenet.me" title="PennApps Fall 2014 SavetheNet">Save the Net</a><div class="comment"> We won the <a href="http://challengepost.com/software/save-the-net" title="ChallengePost"> net neutrality</a> prize sponsored by Twilio.</div>
-</div></div><br>
-<div class="projectpane">
-<a href="http://cs.wellesley.edu/~trace/servlets/" title="CS 304 Databases with web interfaces project">Trace</a>
-</div><br>
 
+  <div class="parallax">
+    <div id="group1" class="parallax__group">
+      <div id="top"></div>
+      <div class="parallax__layer parallax__layer--base">
+
+        <div class="title" style="font-size: 100px;">HELLO MY NAME IS KARINA<br>
+
+          <!-- this is my nav bar -->
+        <div class="navbar">
+        <a href="#timeline" alt="hobbies"><img class="icon" src="svg/frisbee1.svg"></a>
+        <a href="#contact" alt="contact me"><img class="icon" src="svg/mail8.svg"></a>
+        <a href="karinaResume.pdf" alt="download my resume"><img class="icon" src="svg/professional5.svg"></a>
+        <a href="#group3" alt="projects"><img class="icon" src="svg/viral.svg"></a>
+        <a href="https://www.linkedin.com/in/karinachan" alt="Linkedin"><img class="icon" src="svg/linkedin1.svg" alt="linkedin icon"></a>
+        <a href="https://github.com/karinachan" alt="github"><img class="icon" src="svg/github4.svg" alt="github icon"></div></a>
+      </div>
+     <!-- content goes here -->
+    </div>
+    </div>
+    <div id="group2" class="parallax__group">
+
+      <div class="parallax__layer parallax__layer--base">
+        <img src="climbing.png" >
+<h2 class="headertitle">I'm a junior at Wellesley College majoring in CS and minoring in math. Originally from the Bay Area in California. I like to pretend that I climb mountains.</h2>
+
+        <!-- content goes here -->
+
+      </div>
+      <div class="parallax__layer parallax__layer--back">
+
+<img src="mountains.jpg" title="Mountains that I have not yet climbed">
+
+      </div>
+    </div>
+    <div id="group3" class="parallax__group">
+
+      <div class="parallax__layer parallax__layer--fore">
+<!-- <img src="wave.png" style="z-index: 1;"> -->
+<div class="headertitleex">
+<h2 style="color: white; font-size: 100px; padding: 0% 0% 3% 3%;">Some of my projects...</h2>
+
+<!--
+</div> -->
+<div class="projects">
+
+<a href="../pennappsf13/" title="PennApps Fall 2013 IdeaBox">IdeaBox</a><br>
+
+<a href="http://cs.wellesley.edu/~lzeng/PennAppsS14/wut2do/index.html" title="PennApps Spring 2014 Whur">Whur?</a><br>
+
+<a href="http://savethenet.me" title="PennApps Fall 2014 SavetheNet">Save the Net</a><br>
+
+<a href="http://cs.wellesley.edu/~trace/servlets/" title="CS 304 Databases with web interfaces project">Trace</a><br>
+</div>
+
+<h1 style="color: white; font-size: 70px; padding:0% 0% 3% 3%;">You should check out my <a href="#timeline">timeline</a> though.</h1>
+</div>
+
+
+
+      </div>
+
+
+
+    </div>
+
+    <!--
+    <div id="group4" class="parallax__group">
+      <div class="parallax__layer parallax__layer--base">
+        <div class="title">Base Layer</div>
+      </div>
+      <div class="parallax__layer parallax__layer--back">
+        <div class="title">Background Layer</div>
+      </div>
+      <div class="parallax__layer parallax__layer--deep">
+
+        <div class="title">Deep layer</div>
+      </div>
+    </div> -->
+
+
+
+    <div id="group7" class="parallax__group">
+
+      <div class="parallax__layer parallax__layer--base">
+      <div style="margin: 0 auto; padding: 20%;">
+      <h1>So what can you actually do?</h1>
+        <p>I can do a lot of things. <br>I can cook an egg in a cup.<br>I like to grow scallions. <br>For more information, check out my resume, linkedin, or github:  <br><a href="karinaResume.pdf" alt="download my resume"><img class="icon" src="svg/professional5.svg"></a>
+<a href="https://www.linkedin.com/in/karinachan" alt="Linkedin"><img class="icon" src="svg/linkedin1.svg" alt="linkedin icon"></a>
+<a href="https://github.com/karinachan" alt="github"><img class="icon" src="svg/github4.svg" alt="github icon"></a></div>
+<div id="timeline" class="idiv">
+<iframe id="iframe_main" align="center" src='http://cdn.knightlab.com/libs/timeline/latest/embed/index.html?source=0Am7Aqy7NnXPfdFRabHVfcU90cjBPcy1IeWl3TWVUSFE&font=NixieOne-Ledger&maptype=toner&lang=en&start_at_end=true&hash_bookmark=true&start_zoom_adjust=7&height=600' width='100%' height='550' frameborder='0'></iframe>
+
+</div>
+
+</div>
+      </div>
+    </div>
+
+    <!--
+    <div id="group7" class="parallax__group">
+      <div class="parallax__layer parallax__layer--base">
+        <h2>If you have any questions/comments...</h2>
+        <div class="title"> Feel free to contact me at [karina at wellesley dot edu]!</div>
+      </div>
+    </div>
+  -->
+
+
+  <script>
+    var debugInput = document.querySelector("input");
+    function updateDebugState() {
+        document.body.classList.toggle('debug-on', debugInput.checked);
+    }
+    debugInput.addEventListener("click", updateDebugState);
+    updateDebugState();
+  </script>
+
+
+<div>Icons made by Freepik, Stephen Hutchings, Zurb from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>         is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
 </body>
+
 </html>
-
-
